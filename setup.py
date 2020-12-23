@@ -7,7 +7,7 @@ with open('README.md', 'r') as file:
 
 setup(
     name='auditpol',
-    version='1.0.0',
+    version='1.1.0',
     author='Liam Sennitt',
     description='Windows Audit Policy parser and emitter for Python',
     long_description=long_description,
