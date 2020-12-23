@@ -103,7 +103,7 @@ These settings can then be used to create an `auditpol.policy.AuditPolicy`.
 ```python
 >>> from auditpol.policy import AuditPolicy
 
->>> policy = AppLockerPolicy(
+>>> policy = AuditPolicy(
 ...     settings=[
 ...         subcategory_setting,
 ...         audit_option,
