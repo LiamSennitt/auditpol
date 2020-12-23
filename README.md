@@ -1,6 +1,6 @@
 # AuditPol
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/LiamSennitt/auditpol/build/main)](https://github.com/LiamSennitt/auditpol/actions?query=workflow%3Abuild+branch%3Amain)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/LiamSennitt/auditpol/Build/main)](https://github.com/LiamSennitt/auditpol/actions?query=workflow%3Abuild+branch%3Amain)
 [![PyPI](https://img.shields.io/pypi/v/auditpol)](https://pypi.org/project/auditpol/)
 [![GitHub](https://img.shields.io/github/license/LiamSennitt/auditpol)](LICENSE)
 
