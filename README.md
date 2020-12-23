@@ -38,7 +38,7 @@ In addition to loading an existing audit policy, policies created using the rele
 
 ### SubcategorySetting
 
-To create a subcategory setting as part of an audit policy, a `auditpol.subcategories.Subcategory` and a `auditpol.settings.SettingValue` must be created.
+To create a system subcategory setting as part of an audit policy, a `auditpol.subcategories.Subcategory` and a `auditpol.settings.SettingValue` must be created.
 
 This can then be used to create a `auditpol.settings.SubcategorySetting`.
 

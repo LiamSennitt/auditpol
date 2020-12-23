@@ -18,10 +18,10 @@ class _Setting():
 
 
 class SettingValue():
-    _value = ((None, None), (True, False), (False, True), (True, True), (False, False))
-    _value_text = ('', 'Success', 'Failure', 'Success and Failure', 'No Auditing')
+    _value = ((False, False), (True, False), (False, True), (True, True))
+    _value_text = ('No Auditing', 'Success', 'Failure', 'Success and Failure')
 
-    def __init__(self, *, success=None, failure=None):
+    def __init__(self, *, success=False, failure=False):
         self.success = success
         self.failure = failure
 
@@ -37,7 +37,7 @@ class SettingValue():
 
     @success.setter
     def success(self, success):
-        if success is None or isinstance(success, bool):
+        if isinstance(success, bool):
             self._success = success
         else:
             raise TypeError(f'invalid type for success: {type(success)}')
@@ -48,7 +48,7 @@ class SettingValue():
 
     @failure.setter
     def failure(self, failure):
-        if failure is None or isinstance(failure, bool):
+        if isinstance(failure, bool):
             self._failure = failure
         else:
             raise TypeError(f'invalid type for failure: {type(failure)}')
@@ -65,23 +65,10 @@ class SettingValue():
 
 
 class SubcategorySetting(_Setting):
-    def __init__(self, *, machine_name='', policy_target='System', subcategory, inclusion_setting, exclusion_setting):
+    def __init__(self, *, machine_name='', subcategory, inclusion_setting):
         super(SubcategorySetting, self).__init__(machine_name=machine_name)
-        self.policy_target = policy_target
         self.subcategory = subcategory
         self.inclusion_setting = inclusion_setting
-        self.exclusion_setting = exclusion_setting
-
-    @property
-    def policy_target(self):
-        return self._policy_target
-
-    @policy_target.setter
-    def policy_target(self, policy_target):
-        if isinstance(policy_target, str):
-            self._policy_target = policy_target
-        else:
-            raise TypeError(f'invalid type for policy_target: {type(policy_target)}')
 
     @property
     def subcategory(self):
@@ -106,43 +93,29 @@ class SubcategorySetting(_Setting):
             raise TypeError(f'invalid type for inclusion_setting: {type(inclusion_setting)}')
 
     @property
-    def exclusion_setting(self):
-        return self._exclusion_setting
-
-    @exclusion_setting.setter
-    def exclusion_setting(self, exclusion_setting):
-        if isinstance(exclusion_setting, SettingValue):
-            self._exclusion_setting = exclusion_setting
-        else:
-            raise TypeError(f'invalid type for exclusion_setting: {type(exclusion_setting)}')
-
-    @property
     def value(self):
         return int(self.inclusion_setting)
 
     @classmethod
     def from_csv(cls, row):
-        machine_name, policy_target, name, id, inclusion_value_text, exclusion_value_text, _ = row.split(',')
+        machine_name, _, name, id, inclusion_value_text, _, _ = row.split(',')
 
         inclusion_setting = SettingValue.from_value_text(inclusion_value_text)
-        exclusion_setting = SettingValue.from_value_text(exclusion_value_text)
 
         return cls(
             machine_name=machine_name,
-            policy_target=policy_target,
             subcategory=Subcategory(
                 id=id,
                 name=name
             ),
-            inclusion_setting=inclusion_setting,
-            exclusion_setting=exclusion_setting
+            inclusion_setting=inclusion_setting
         )
 
 
     def to_csv(self):
         return (
-            f'{self.machine_name},{self.policy_target},{self.subcategory.name},{self.subcategory.id},'
-            f'{str(self.inclusion_setting)},{str(self.exclusion_setting)},{self.value}\n'
+            f'{self.machine_name},System,{self.subcategory.name},{self.subcategory.id},'
+            f'{str(self.inclusion_setting)},,{self.value}\n'
         )
 
 
