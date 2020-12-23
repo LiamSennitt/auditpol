@@ -120,7 +120,7 @@ class SubcategorySetting(_Setting):
 
 
 class OptionValue():
-    def __init__(self, *, enabled):
+    def __init__(self, *, enabled=False):
         self.enabled = enabled
 
     def __int__(self):
@@ -142,7 +142,7 @@ class OptionValue():
 
     @classmethod
     def from_value(cls, value):
-        return cls(enabled=int(value))
+        return cls(enabled=bool(value))
 
 
 class AuditOption(_Setting):
@@ -227,4 +227,4 @@ class GlobalObjectAccessAuditSetting(_Setting):
         )
 
     def to_csv(self):
-        return f'{self.machine_name},,{self.type},,,,{int(self.sacl)}\n'
+        return f'{self.machine_name},,{self.type},,,,{self.sacl}\n'
